@@ -1,0 +1,64 @@
+\paragraph{Aclaración} En todos los desarrollos estamos asumiendo que vale el modelo linealizado del PLL. Si no tenés idea de que significa esto, leete las notas de Cioffi\cite{Cio6}.
+
+\section{Ejercicio 1 - PLL de primer orden}
+Considere un sistema de recuperación de portadora que utiliza un PLL. Asuma que el error de fase es lo suficientemente pequeño como para que el modelo lineal del PLL dado por la Figura 1 sea aceptable. Asuma que el filtro de lazo L(s) tiene una transferencia de orden cero L(s) = K.
+
+\subsection{Item 1}\paragraph{Enunciado}Determine la transferencia del sistema a lazo cerrado: \[G(s) = \frac{\hat{\Theta}(s)}{\Theta(s)}\] y la transferencia del error: \[G_e(s)=\frac{E(s)}{\Theta(s)}\] determinando los valores de K para los cuales el lazo es estable.
+
+\begin{figure}[h]
+	\centering
+	\input{diagramas/pll_lineal}
+	\caption{Diagrama en bloques de un PLL linealizado.}
+	\label{fig:pll_lineal}
+\end{figure}
+
+Siguiendo el esquema de la Figura \ref{fig:pll_lineal}, tenemos que
+\begin{align}
+\hat{\Theta}(s) &= \frac{1}{s}\, L(s)\, E(s)\nonumber\\
+				&= \frac{K}{s} (\Theta(s) - \hat{\Theta}(s))\nonumber\\ 
+G(s) = \frac{\hat{\Theta}(s)}{\Theta(s)} &= \frac{s}{s+K} \label{ec:ej1:G}
+\end{align}
+
+y luego:
+
+\begin{align}
+G_e(s) 	&= \frac{\Theta(s)-\hat{\Theta}(s)}{\Theta(s)}\nonumber\\
+		&= \frac{s}{K+s} \label{ec:ej1:Ge}
+\end{align}
+
+Analizando la ecuación \ref{ec:ej1:G}, se observa que la transferencia del PLL posee un polo en $s=-K$. Para que el sistema sea estable todos los polos deben estar en el semiplano izquierdo, por ende debe cumplirse que $K \ge 0$.
+
+\subsection{Item 2} \paragraph{Enunciado}Realice un diagrama de Bode de la magnitud de $G(s)$ y $G_e(s)$ indicando los valores más representativos. ¿Qué tipo de transferencia es cada una de ellas?
+
+A esta altura de la vida, se ve claro que la transferencia del sistema $G(s)$ es un pasa-bajos, mientras que la transferencia del error $G_e(s)$ es un pasa-altos, ambos de primer orden.
+
+\subsection{Item 3}  \paragraph{Enunciado}Suponga que la portadora local tiene un offset de fase y de frecuencia constantes respecto de la portadora recibida, es decir, que $\theta(t) = (\theta_0 + \Delta\omega\, t)\, u(t)$. Determine el valor de $e(t)$ en estado estacionario.
+
+Dado que $G_e(s)$ es estable, podemos hablar de error estacionario. Transformando $\theta(t)$ obtenemos:
+
+\begin{align}
+	\Theta(s) = \theta_0 \cdot \frac{1}{s} + \Delta\omega \cdot \frac{1}{s^2}
+\end{align}
+
+Y según el modelo linealizado (Figura \ref{fig:pll_lineal}):
+\begin{align}
+	E(s) 	&= \Theta(s)\, G(s) \nonumber\\
+			&= \theta_0 \frac{1}{K+s} + \Delta\omega \frac{1}{s(K+s)}
+\end{align}
+
+Y empleando el Teorema del Valor Final (dado que el sistema es estable):
+\begin{align}
+	e(+\infty) 	&= \lim\limits_{s \to 0} s E(s) \nonumber\\
+				&= \lim\limits_{s \to 0} \left( \theta_0 \frac{s}{K+s} + \Delta\omega \frac{1}{K+s} \right) \nonumber\\
+				&= \frac{\Delta\omega}{K}
+\end{align}
+
+\subsection{Item Extra} \paragraph{Enunciado} Ya que estamos, vamos a calcular el \textit{Rango de Enganche} del PLL.
+
+La condición de enganche es, básicamente:
+
+\begin{align}
+	\Delta\omega \le \pi L(0) \label{ec:rango_enganche}
+\end{align}
+
+Que en este caso se reduce a: $\Delta\omega \le K\pi$.
