@@ -19,7 +19,7 @@
 \newcommand{\rutapaquetes}{./paquetes-apunte}
 
 \usepackage{\rutapaquetes/caratula} % Caratula personalizada (cargada desde caratula.sty)
-\usepackage[mostrarrevisores]{\rutapaquetes/colaboradores} % Seccion de colaboradores (cargada y creada con colaboradores.sty)
+\usepackage[ocultarrevisores]{\rutapaquetes/colaboradores} % Seccion de colaboradores (cargada y creada con colaboradores.sty)
 \usepackage{\rutapaquetes/historial} % Seccion de historial de cambios (cargada y creada con historial.sty)
 
 % Define los estilos de los enlaces interpretados por el paquete hyperref
@@ -88,10 +88,11 @@
 % Incluir los nombres de las personas que han colaborado en la creación del apunte
 \colaborador{Fernando Iván Danko (fdanko@fi.uba.ar)}
 %\colaborador{Colaborador 2}
-\revisor{}{}
+%\revisor{}{}
 \makeseccioncolaboradores % Crea la seccion de colaboradres
 
 % Incluir el historial de cambios
 \revision{22/01/2015}{Versión inicial.}
+\makehistorial
 
 \end{document}
