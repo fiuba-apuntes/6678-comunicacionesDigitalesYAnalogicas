@@ -62,3 +62,50 @@ La condición de enganche es, básicamente:
 \end{align}
 
 Que en este caso se reduce a: $\Delta\omega \le K\pi$.
+
+\section{Ejercicio 5 - Offset en PLL}
+Se utiliza un PLL para hallar la fase de una señal senoidal cercana a $1MHz$. El error en
+la frecuencia puede ser de $0.01\%$. Se utiliza un PLL de primer orden con filtro de lazo $L(s)$
+para este trabajo. Se admite un error en estado estacionario que no debe superar el $5\%$.
+
+\subsection{Item 1}
+\paragraph{Enunciado} Hallar el valor de $K$ que verifique que el error de fase es menor a $5\%$, o lo que es lo
+mismo menor a $0.01\pi$.
+
+El error de frecuencia es $\Delta f = 0.01\%\, 1MHz = 100Hz$, o lo que es lo mismo, $\Delta \omega = 2\pi\, \Delta f = 200\pi\, 1/s$.
+
+En primer lugar, hay que cumplir la condición de enganche. Dado que $L(s) = K$ tenemos:
+\begin{align*}
+\Delta \omega &\le \pi L(0)\\
+200 \pi &\le \pi K\\
+K &> 200
+\end{align*}
+
+Con esa ganancia el sistema permanece enganchado en estas condiciones, pero falta cumplir la condición de error en estado estacionario, esto es:
+
+\begin{align*}
+e(+\infty) &< 0.01 \pi\\
+\lim\limits_{s\to 0} sE(s) = \frac{\Delta \omega}{K} &< 0.01 \pi\\
+K > 2\times 10^4
+\end{align*}
+
+Vemos que con $K > 2\times 10^4$ se cumplen ambas condiciones.
+
+\subsection{Item 2}
+\paragraph{Enunciado} Suponga ahora que la frecuencia es cercana a $10GHz$ en lugar de $1MHz$. El PLL resultante, ¿es estable?
+
+Usando el mismo PLL: $L(s) = 2\times 10^4$, ahora con $f_c = 10GHz$ tenemos que $\Delta \omega = 2\times 10^5 \pi\, 1/s$. Pero al verificar la condición de enganche, se debe cumplir:
+
+\begin{align*}
+\Delta \omega &\le \pi L(0)\\
+\Delta \omega &\le 2\times 10^4 \pi\, 1/s
+\end{align*}
+
+Por ende, el PLL no engancha. (Aunque es estable, en el sentido BIBO como sistema LTI, ya que tiene los polos en el semiplano izquierdo, pero no funcionaría como PLL).
+
+\subsection{Item 3}
+ Si el PLL es inestable, ¿podría resolverse el problema utilizando un PLL de segundo orden? ¿Cómo resolvería el problema sin recurrir a un PLL de orden mayor?
+ 
+ Para usar un PLL de primer orden, simplemente basta con diseñarlo de nuevo y obtener un valor de $K$ enorme. Esto puede ser un problema a la hora de implementarlo.
+ 
+ Se podría diseñar un PLL de segundo orden que sea más ``potable'' tecnológicamente que el de primer orden, ya que $G(s)$ pasaría de ser un pasabajos a un pasabandas; por ende al tener un menor ancho de banda sería menos propenso a los problemas con el ruido.
